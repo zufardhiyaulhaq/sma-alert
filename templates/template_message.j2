@@ -1,0 +1,12 @@
+*Simple Moving Average Alert*
+*{{ baseline_data.date }}*
+
+*Percentage from SMA*: {{ baseline_data.percentage }}%
+
+*Stocks:*{% for stock in baseline_data.stocks %}
+• Stock {{stock.code}}.{{stock.country}} is approaching to {{stock.sma}}.
+  [chartbit](https://stockbit.com/#/symbol/{{stock.code}}/chartbit)
+{% endfor %}
+
+This information is gather daily.
+Created by @zufardhiyaulhaq
