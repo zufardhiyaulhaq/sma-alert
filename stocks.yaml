@@ -7,6 +7,22 @@ issuers:
   country: JK
 - code: BBNI
   country: JK
+- code: BNII
+  country: JK
+- code: BSIM
+  country: JK
+- code: BVIC
+  country: JK
+- code: BCAP
+  country: JK
+- code: BHIT
+  country: JK
+- code: ITMG
+  country: JK
+- code: BINA
+  country: JK
+- code: INAF
+  country: JK
 - code: BNBA
   country: JK
 - code: GGRM
@@ -31,6 +47,8 @@ issuers:
   country: JK
 - code: BMRI
   country: JK
+- code: BMTR
+  country: JK
 - code: ICBP
   country: JK
 - code: ANTM
@@ -43,15 +61,27 @@ issuers:
   country: JK
 - code: EMTK
   country: JK
+- code: TKIM
+  country: JK
 - code: MTDL
   country: JK
 - code: WOOD
   country: JK
 - code: JPFA
   country: JK
+- code: TAPG
+  country: JK
 - code: BNGA
   country: JK
 - code: DMAS
+  country: JK
+- code: DOID
+  country: JK
+- code: DSNG
+  country: JK
+- code: ACST
+  country: JK
+- code: ISSP
   country: JK
 - code: BJTM
   country: JK
@@ -79,7 +109,21 @@ issuers:
   country: JK
 - code: MTEL
   country: JK
+- code: ELSA
+  country: JK
+- code: HRUM
+  country: JK
+- code: HOKI
+  country: JK
+- code: BDMN
+  country: JK
 - code: WIKA
+  country: JK
+- code: WIIM
+  country: JK
+- code: HEAL
+  country: JK
+- code: BEST
   country: JK
 - code: ADHI
   country: JK
@@ -92,6 +136,8 @@ issuers:
 - code: CTRA
   country: JK
 - code: CPIN
+  country: JK
+- code: DGNS
   country: JK
 - code: BSDE
   country: JK
@@ -117,7 +163,11 @@ issuers:
   country: JK
 - code: MLPL
   country: JK
+- code: LPKR
+  country: JK
 - code: AUTO
+  country: JK
+- code: BATA
   country: JK
 - code: IPTV
   country: JK
@@ -132,4 +182,48 @@ issuers:
 - code: ESSA
   country: JK
 - code: AGII
+  country: JK
+- code: PTPP
+  country: JK
+- code: SMRA
+  country: JK
+- code: SMBR
+  country: JK
+- code: ASRI
+  country: JK
+- code: ASGR
+  country: JK
+- code: ATIC
+  country: JK
+- code: TPIA
+  country: JK
+- code: MAPI
+  country: JK
+- code: BBTN
+  country: JK
+- code: BTPS
+  country: JK
+- code: BRPT
+  country: JK
+- code: BUKA
+  country: JK
+- code: INKP
+  country: JK
+- code: MDKA
+  country: JK
+- code: MIKA
+  country: JK
+- code: TINS
+  country: JK
+- code: INTP
+  country: JK
+- code: AKRA
+  country: JK
+- code: JSMR
+  country: JK
+- code: AALI
+  country: JK
+- code: BFIN
+  country: JK
+- code: BJBR
   country: JK
