@@ -7,8 +7,11 @@ from datetime import date
 from jinja2 import Environment, FileSystemLoader
 
 STOCK_LISTS_FILEPATH = os.getenv('STOCK_LISTS_FILEPATH')
+STOCK_RESISTANCE_TIMEFRAME= int(os.getenv('STOCK_RESISTANCE_TIMEFRAME'))
+STOCK_RESISTANCE_SHIFT= int(os.getenv('STOCK_RESISTANCE_SHIFT'))
 STOCK_PRICE_PERCENTAGE_FROM_SMA = float(os.getenv('STOCK_PRICE_PERCENTAGE_FROM_SMA'))
-
+STOCK_PRICE_PERCENTAGE_FROM_RESISTANCE = float(os.getenv('STOCK_PRICE_PERCENTAGE_FROM_RESISTANCE'))
+STOCK_PRICE_PERCENTAGE_FROM_SMA_TARGET_BUY = float(os.getenv('STOCK_PRICE_PERCENTAGE_FROM_SMA_TARGET_BUY'))
 TELEGRAM_CHATID = os.getenv('TELEGRAM_CHATID')
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 
@@ -39,38 +42,79 @@ for issuer in config["issuers"]:
         proxy = None
     )
 
+    # get closing price
     data = data['Close'].to_frame()
+
+    # calculate resistance
+    resistance_data = data['Close'].iloc[-abs(STOCK_RESISTANCE_TIMEFRAME+1):-1]
+    resistance = resistance_data.max()
+    is_resistance_valid = True
+
+    for index in range(-abs(STOCK_RESISTANCE_TIMEFRAME+2), -abs(STOCK_RESISTANCE_TIMEFRAME+2)-abs(STOCK_RESISTANCE_SHIFT), -1):
+        if resistance < data.iloc[index]["Close"]:
+            is_resistance_valid = False
+            break
+
+    # calculate simple moving average
     data['SMA50'] = data['Close'].rolling(50).mean()
     data['SMA100'] = data['Close'].rolling(100).mean()
     data['SMA200'] = data['Close'].rolling(200).mean()
 
+    # get data from the latest trading day
     close = data.iloc[-1]["Close"]
     sma50 = data.iloc[-1]["SMA50"]
     sma100 = data.iloc[-1]["SMA100"]
     sma200 = data.iloc[-1]["SMA200"]
 
+    # check if resistance price in STOCK_PRICE_PERCENTAGE_FROM_RESISTANCE range
+    if resistance < close+(close*STOCK_PRICE_PERCENTAGE_FROM_RESISTANCE/100):
+        continue
+    
+    percentage_from_resistance = round((((resistance - close) / close) * 100), 5)
+
     if close > sma50:
-        if (((close - sma50) / sma50) * 100) <= STOCK_PRICE_PERCENTAGE_FROM_SMA:
+        percentage_from_sma = round((((close - sma50) / sma50) * 100), 5)
+        target_buy = round(sma50 + (sma50 * STOCK_PRICE_PERCENTAGE_FROM_SMA_TARGET_BUY / 100), 5)
+
+        if percentage_from_sma <= STOCK_PRICE_PERCENTAGE_FROM_SMA:
             baseline_data["stocks"].append({
                 "code": issuer["code"],
                 "country": issuer["country"],
                 "sma": "SMA50",
+                "percentage_from_sma": percentage_from_sma,
+                "percentage_from_resistance": percentage_from_resistance,
+                "target_buy": target_buy,
+                "cutloss": sma50,
             })
 
     if close > sma100:
-        if (((close - sma100) / sma100) * 100) <= STOCK_PRICE_PERCENTAGE_FROM_SMA:
+        percentage_from_sma = round((((close - sma100) / sma100) * 100), 5)
+        target_buy = round(sma100 + (sma100 * STOCK_PRICE_PERCENTAGE_FROM_SMA_TARGET_BUY / 100), 5)
+
+        if percentage_from_sma <= STOCK_PRICE_PERCENTAGE_FROM_SMA:
             baseline_data["stocks"].append({
                 "code": issuer["code"],
                 "country": issuer["country"],
                 "sma": "SMA100",
+                "percentage_from_sma": percentage_from_sma,
+                "percentage_from_resistance": percentage_from_resistance,
+                "target_buy": target_buy,
+                "cutloss": sma100,
             })
 
     if close > sma200:
-        if (((close - sma200) / sma200) * 100) <= STOCK_PRICE_PERCENTAGE_FROM_SMA:
+        percentage_from_sma = round((((close - sma200) / sma200) * 100), 5)
+        target_buy = round(sma200 + (sma200 * STOCK_PRICE_PERCENTAGE_FROM_SMA_TARGET_BUY / 100), 5)
+
+        if percentage_from_sma <= STOCK_PRICE_PERCENTAGE_FROM_SMA:
             baseline_data["stocks"].append({
                 "code": issuer["code"],
                 "country": issuer["country"],
                 "sma": "SMA200",
+                "percentage_from_sma": percentage_from_sma,
+                "percentage_from_resistance": percentage_from_resistance,
+                "target_buy": target_buy,
+                "cutloss": sma200,
             })
 
 message = baseline.render(baseline_data=baseline_data)

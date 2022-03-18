@@ -1,11 +1,12 @@
 *Simple Moving Average Alert*
 *{{ baseline_data.date }}*
 
-*Percentage from SMA*: {{ baseline_data.percentage }}%
-
 *Stocks:*{% for stock in baseline_data.stocks %}
-• Stock {{stock.code}}.{{stock.country}} is approaching to {{stock.sma}}.
-  [chartbit](https://stockbit.com/#/symbol/{{stock.code}}/chartbit)
+• Stock {{stock.code}}.{{stock.country}} is approaching {{stock.sma}}.
+  *Percentage from SMA*: {{stock.percentage_from_sma}}
+  *Percentage from Resistance*: {{stock.percentage_from_resistance}}
+  Target Buy: {{stock.target_buy}}, Cut Loss: {{stock.cutloss}}
+  *Useful Link*: [[stockbit chartbit](https://stockbit.com/#/symbol/{{stock.code}}/chartbit)]
 {% endfor %}
 
 This information is gather daily.
