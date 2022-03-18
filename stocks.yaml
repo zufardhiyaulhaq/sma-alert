@@ -11,6 +11,20 @@ issuers:
   country: JK
 - code: BSIM
   country: JK
+- code: ARCI
+  country: JK
+- code: BBKP
+  country: JK
+- code: AMAR
+  country: JK
+- code: MEGA
+  country: JK
+- code: BABP
+  country: JK
+- code: NISP
+  country: JK
+- code: NIKL
+  country: JK
 - code: BVIC
   country: JK
 - code: BCAP
@@ -68,6 +82,8 @@ issuers:
 - code: WOOD
   country: JK
 - code: JPFA
+  country: JK
+- code: FASW
   country: JK
 - code: TAPG
   country: JK
@@ -131,6 +147,16 @@ issuers:
   country: JK
 - code: BRIS
   country: JK
+- code: BEBS
+  country: JK
+- code: BEKS
+  country: JK
+- code: BGTG
+  country: JK
+- code: SMCB
+  country: JK
+- code: BBHI
+  country: JK
 - code: PWON
   country: JK
 - code: CTRA
@@ -169,9 +195,27 @@ issuers:
   country: JK
 - code: BATA
   country: JK
+- code: BAJA
+  country: JK
+- code: PNBN
+  country: JK
+- code: BANK
+  country: JK
+- code: AGRO
+  country: JK
+- code: ZINC
+  country: JK
+- code: CMNT
+  country: JK
+- code: PNLF
+  country: JK
 - code: IPTV
   country: JK
 - code: LPPF
+  country: JK
+- code: SRTG
+  country: JK
+- code: PNBS
   country: JK
 - code: WSKT
   country: JK
@@ -190,6 +234,8 @@ issuers:
 - code: SMBR
   country: JK
 - code: ASRI
+  country: JK
+- code: BTPN
   country: JK
 - code: ASGR
   country: JK
@@ -229,3 +275,10 @@ issuers:
   country: JK
 - code: INDY
   country: JK
+- code: WSBP
+  country: JK
+- code: KRAS
+  country: JK
+- code: AVIA
+  country: JK
+
