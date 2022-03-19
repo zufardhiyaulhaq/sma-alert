@@ -8,8 +8,8 @@ metadata:
     app.kubernetes.io/instance: {{ .Release.Name }}
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 data:
-  STOCK_RESISTANCE_TIMEFRAME: {{ .Values.rules.resistance_timeframe }}
-  STOCK_RESISTANCE_SHIFT: {{ .Values.rules.resistance_shift }}
-  STOCK_PRICE_PERCENTAGE_FROM_SMA: {{ .Values.rules.price_percentage_from_sma }}
-  STOCK_PRICE_PERCENTAGE_FROM_RESISTANCE: {{ .Values.rules.price_percentage_from_resistance }}
-  STOCK_PRICE_PERCENTAGE_FROM_SMA_TARGET_BUY: {{ .Values.rules.price_percentage_from_sma_target_buy }}
+  STOCK_RESISTANCE_TIMEFRAME: "{{ .Values.rules.resistance_timeframe }}"
+  STOCK_RESISTANCE_SHIFT: "{{ .Values.rules.resistance_shift }}"
+  STOCK_PRICE_PERCENTAGE_FROM_SMA: "{{ .Values.rules.price_percentage_from_sma }}"
+  STOCK_PRICE_PERCENTAGE_FROM_RESISTANCE: "{{ .Values.rules.price_percentage_from_resistance }}"
+  STOCK_PRICE_PERCENTAGE_FROM_SMA_TARGET_BUY: "{{ .Values.rules.price_percentage_from_sma_target_buy }}"
