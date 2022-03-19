@@ -1,0 +1,21 @@
+{{ template "chart.header" . }}
+{{ template "chart.description" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}{{ template "chart.appVersionBadge" . }}[![made with Go](https://img.shields.io/badge/made%20with-Go-brightgreen)](http://golang.org) [![Github main branch build](https://img.shields.io/github/workflow/status/zufardhiyaulhaq/sma-alert/Main)](https://github.com/zufardhiyaulhaq/sma-alert/actions/workflows/main.yml) [![GitHub issues](https://img.shields.io/github/issues/zufardhiyaulhaq/sma-alert)](https://github.com/zufardhiyaulhaq/sma-alert/issues) [![GitHub pull requests](https://img.shields.io/github/issues-pr/zufardhiyaulhaq/sma-alert)](https://github.com/zufardhiyaulhaq/sma-alert/pulls)
+
+## Installing the Chart
+
+To install the chart with the release name `my-release` and secret `foo`:
+
+```console
+kubectl apply -f secret.yaml
+
+helm repo add zufardhiyaulhaq https://charts.zufardhiyaulhaq.com/
+helm install sma-alert zufardhiyaulhaq/sma-alert --values values.yaml --set secret=foo
+```
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}
+
+{{ template "helm-docs.versionFooter" . }}

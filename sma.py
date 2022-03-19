@@ -6,7 +6,7 @@ import telegram
 from datetime import date
 from jinja2 import Environment, FileSystemLoader
 
-STOCK_LISTS_FILEPATH = os.getenv('STOCK_LISTS_FILEPATH')
+STOCK_LISTS_FILEPATH = os.getenv('STOCK_LISTS_FILEPATH', "./stocks.yaml")
 STOCK_RESISTANCE_TIMEFRAME= int(os.getenv('STOCK_RESISTANCE_TIMEFRAME'))
 STOCK_RESISTANCE_SHIFT= int(os.getenv('STOCK_RESISTANCE_SHIFT'))
 STOCK_PRICE_PERCENTAGE_FROM_SMA = float(os.getenv('STOCK_PRICE_PERCENTAGE_FROM_SMA'))
