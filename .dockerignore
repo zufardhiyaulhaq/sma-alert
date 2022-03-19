@@ -1,0 +1,10 @@
+.github
+.git
+charts
+.env
+.env.example
+.gitignore
+Dockerfile
+Makefile
+README.md
+stocks.yaml
