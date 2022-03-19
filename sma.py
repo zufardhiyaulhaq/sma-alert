@@ -118,5 +118,5 @@ for issuer in config["issuers"]:
             })
 
 message = baseline.render(baseline_data=baseline_data)
-bot = telegram.Bot(TELEGRAM_TOKEN)
+bot = telegram.Bot(token=TELEGRAM_TOKEN)
 bot.send_message(chat_id=TELEGRAM_CHATID, text=message, parse_mode=telegram.ParseMode.MARKDOWN, disable_web_page_preview=True)
