@@ -1,5 +1,5 @@
-python-telegram-bot
-pandas-datareader
-yfinance
+python-telegram-bot==13.11
+pandas-datareader==0.10.0
+yfinance==0.1.70
 pyyaml
 jinja2
