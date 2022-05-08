@@ -73,34 +73,20 @@ for issuer in config["issuers"]:
     percentage_from_resistance = round((((resistance - close) / close) * 100), 5)
 
     if close > sma50:
-        percentage_from_sma = round((((close - sma50) / sma50) * 100), 5)
-        target_buy = round(sma50 + (sma50 * STOCK_PRICE_PERCENTAGE_FROM_SMA_TARGET_BUY / 100), 5)
+        if sma50 > sma200:
+            percentage_from_sma = round((((close - sma50) / sma50) * 100), 5)
+            target_buy = round(sma50 + (sma50 * STOCK_PRICE_PERCENTAGE_FROM_SMA_TARGET_BUY / 100), 5)
 
-        if percentage_from_sma <= STOCK_PRICE_PERCENTAGE_FROM_SMA:
-            baseline_data["stocks"].append({
-                "code": issuer["code"],
-                "country": issuer["country"],
-                "sma": "SMA50",
-                "percentage_from_sma": percentage_from_sma,
-                "percentage_from_resistance": percentage_from_resistance,
-                "target_buy": target_buy,
-                "cutloss": sma50,
-            })
-
-    if close > sma100:
-        percentage_from_sma = round((((close - sma100) / sma100) * 100), 5)
-        target_buy = round(sma100 + (sma100 * STOCK_PRICE_PERCENTAGE_FROM_SMA_TARGET_BUY / 100), 5)
-
-        if percentage_from_sma <= STOCK_PRICE_PERCENTAGE_FROM_SMA:
-            baseline_data["stocks"].append({
-                "code": issuer["code"],
-                "country": issuer["country"],
-                "sma": "SMA100",
-                "percentage_from_sma": percentage_from_sma,
-                "percentage_from_resistance": percentage_from_resistance,
-                "target_buy": target_buy,
-                "cutloss": sma100,
-            })
+            if percentage_from_sma <= STOCK_PRICE_PERCENTAGE_FROM_SMA:
+                baseline_data["stocks"].append({
+                    "code": issuer["code"],
+                    "country": issuer["country"],
+                    "sma": "SMA50",
+                    "percentage_from_sma": percentage_from_sma,
+                    "percentage_from_resistance": percentage_from_resistance,
+                    "target_buy": target_buy,
+                    "cutloss": sma50,
+                })
 
     if close > sma200:
         percentage_from_sma = round((((close - sma200) / sma200) * 100), 5)
