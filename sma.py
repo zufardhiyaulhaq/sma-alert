@@ -60,13 +60,11 @@ for issuer in config["issuers"]:
 
         # calculate simple moving average
         data['SMA50'] = data['Close'].rolling(50).mean()
-        data['SMA100'] = data['Close'].rolling(100).mean()
         data['SMA200'] = data['Close'].rolling(200).mean()
 
         # get data from the latest trading day
         close = data.iloc[-1]["Close"]
         sma50 = data.iloc[-1]["SMA50"]
-        sma100 = data.iloc[-1]["SMA100"]
         sma200 = data.iloc[-1]["SMA200"]
 
         # check if resistance price in STOCK_PRICE_PERCENTAGE_FROM_RESISTANCE range
