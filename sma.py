@@ -31,77 +31,82 @@ with open(STOCK_LISTS_FILEPATH, 'r') as stream:
         sys.exit(exception)
 
 for issuer in config["issuers"]:
-    data = yfinance.download(
-        tickers = issuer["code"] + "." + issuer["country"],
-        period = "1y",
-        interval = "1d",
-        group_by = 'ticker',
-        auto_adjust = True,
-        prepost = True,
-        threads = True,
-        proxy = None
-    )
+    print(f'Get data for stock {issuer["code"]}.{issuer["country"]}')
+    try:
+        data = yfinance.download(
+            tickers = issuer["code"] + "." + issuer["country"],
+            period = "1y",
+            interval = "1d",
+            group_by = 'ticker',
+            auto_adjust = True,
+            prepost = True,
+            threads = True,
+            show_errors=True,
+            proxy = None
+        )
 
-    # get closing price
-    data = data['Close'].to_frame()
+        # get closing price
+        data = data['Close'].to_frame()
 
-    # calculate resistance
-    resistance_data = data['Close'].iloc[-abs(STOCK_RESISTANCE_TIMEFRAME+1):-1]
-    resistance = resistance_data.max()
-    is_resistance_valid = True
+        # calculate resistance
+        resistance_data = data['Close'].iloc[-abs(STOCK_RESISTANCE_TIMEFRAME+1):-1]
+        resistance = resistance_data.max()
+        is_resistance_valid = True
 
-    for index in range(-abs(STOCK_RESISTANCE_TIMEFRAME+2), -abs(STOCK_RESISTANCE_TIMEFRAME+2)-abs(STOCK_RESISTANCE_SHIFT), -1):
-        if resistance < data.iloc[index]["Close"]:
-            is_resistance_valid = False
-            break
+        for index in range(-abs(STOCK_RESISTANCE_TIMEFRAME+2), -abs(STOCK_RESISTANCE_TIMEFRAME+2)-abs(STOCK_RESISTANCE_SHIFT), -1):
+            if resistance < data.iloc[index]["Close"]:
+                is_resistance_valid = False
+                break
 
-    # calculate simple moving average
-    data['SMA50'] = data['Close'].rolling(50).mean()
-    data['SMA100'] = data['Close'].rolling(100).mean()
-    data['SMA200'] = data['Close'].rolling(200).mean()
+        # calculate simple moving average
+        data['SMA50'] = data['Close'].rolling(50).mean()
+        data['SMA100'] = data['Close'].rolling(100).mean()
+        data['SMA200'] = data['Close'].rolling(200).mean()
 
-    # get data from the latest trading day
-    close = data.iloc[-1]["Close"]
-    sma50 = data.iloc[-1]["SMA50"]
-    sma100 = data.iloc[-1]["SMA100"]
-    sma200 = data.iloc[-1]["SMA200"]
+        # get data from the latest trading day
+        close = data.iloc[-1]["Close"]
+        sma50 = data.iloc[-1]["SMA50"]
+        sma100 = data.iloc[-1]["SMA100"]
+        sma200 = data.iloc[-1]["SMA200"]
 
-    # check if resistance price in STOCK_PRICE_PERCENTAGE_FROM_RESISTANCE range
-    if resistance < close+(close*STOCK_PRICE_PERCENTAGE_FROM_RESISTANCE/100):
-        continue
-    
-    percentage_from_resistance = round((((resistance - close) / close) * 100), 5)
+        # check if resistance price in STOCK_PRICE_PERCENTAGE_FROM_RESISTANCE range
+        if resistance < close+(close*STOCK_PRICE_PERCENTAGE_FROM_RESISTANCE/100):
+            continue
+        
+        percentage_from_resistance = round((((resistance - close) / close) * 100), 5)
 
-    if close > sma50:
-        if sma50 > sma200:
-            percentage_from_sma = round((((close - sma50) / sma50) * 100), 5)
-            target_buy = round(sma50 + (sma50 * STOCK_PRICE_PERCENTAGE_FROM_SMA_TARGET_BUY / 100), 5)
+        if close > sma50:
+            if sma50 > sma200:
+                percentage_from_sma = round((((close - sma50) / sma50) * 100), 5)
+                target_buy = round(sma50 + (sma50 * STOCK_PRICE_PERCENTAGE_FROM_SMA_TARGET_BUY / 100), 5)
+
+                if percentage_from_sma <= STOCK_PRICE_PERCENTAGE_FROM_SMA:
+                    baseline_data["stocks"].append({
+                        "code": issuer["code"],
+                        "country": issuer["country"],
+                        "sma": "SMA50",
+                        "percentage_from_sma": percentage_from_sma,
+                        "percentage_from_resistance": percentage_from_resistance,
+                        "target_buy": target_buy,
+                        "cutloss": sma50,
+                    })
+
+        if close > sma200:
+            percentage_from_sma = round((((close - sma200) / sma200) * 100), 5)
+            target_buy = round(sma200 + (sma200 * STOCK_PRICE_PERCENTAGE_FROM_SMA_TARGET_BUY / 100), 5)
 
             if percentage_from_sma <= STOCK_PRICE_PERCENTAGE_FROM_SMA:
                 baseline_data["stocks"].append({
                     "code": issuer["code"],
                     "country": issuer["country"],
-                    "sma": "SMA50",
+                    "sma": "SMA200",
                     "percentage_from_sma": percentage_from_sma,
                     "percentage_from_resistance": percentage_from_resistance,
                     "target_buy": target_buy,
-                    "cutloss": sma50,
+                    "cutloss": sma200,
                 })
-
-    if close > sma200:
-        percentage_from_sma = round((((close - sma200) / sma200) * 100), 5)
-        target_buy = round(sma200 + (sma200 * STOCK_PRICE_PERCENTAGE_FROM_SMA_TARGET_BUY / 100), 5)
-
-        if percentage_from_sma <= STOCK_PRICE_PERCENTAGE_FROM_SMA:
-            baseline_data["stocks"].append({
-                "code": issuer["code"],
-                "country": issuer["country"],
-                "sma": "SMA200",
-                "percentage_from_sma": percentage_from_sma,
-                "percentage_from_resistance": percentage_from_resistance,
-                "target_buy": target_buy,
-                "cutloss": sma200,
-            })
+    except:
+        print(f'Error getting data for stock {issuer["code"]}.{issuer["country"]}, skipping..')
 
 message = baseline.render(baseline_data=baseline_data)
 bot = telegram.Bot(token=TELEGRAM_TOKEN)

@@ -1,0 +1,49 @@
+apiVersion: v1
+entries:
+  sma-alert:
+  - apiVersion: v2
+    appVersion: 1.2.0
+    created: "2022-09-13T20:00:36.455074+07:00"
+    description: Simple Moving Average alerting
+    digest: 3e4681e55819c1468283ae290d1552c035c75de3e8221d0237c74a1502b646bb
+    home: https://github.com/zufardhiyaulhaq/sma-alert
+    maintainers:
+    - email: zufardhiyaulhaq@gmail.com
+      name: Zufar Dhiyaulhaq
+      url: https://zufardhiyaulhaq.com
+    name: sma-alert
+    type: application
+    urls:
+    - sma-alert-1.2.0.tgz
+    version: 1.2.0
+  - apiVersion: v2
+    appVersion: 1.1.0
+    created: "2022-09-13T20:00:36.448144+07:00"
+    description: Simple Moving Average alerting
+    digest: 13513cb557af8b845667a71f3f5bd644782806e6d0bc1e5fdf338b9889c599e7
+    home: https://github.com/zufardhiyaulhaq/sma-alert
+    maintainers:
+    - email: zufardhiyaulhaq@gmail.com
+      name: Zufar Dhiyaulhaq
+      url: https://zufardhiyaulhaq.com
+    name: sma-alert
+    type: application
+    urls:
+    - sma-alert-1.1.0.tgz
+    version: 1.1.0
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2022-09-13T20:00:36.446503+07:00"
+    description: Simple Moving Average alerting
+    digest: c2dd24153ab06f78224d5e99d587f0528205a54b17a84bf33f134b371b6ae8b3
+    home: https://github.com/zufardhiyaulhaq/sma-alert
+    maintainers:
+    - email: zufardhiyaulhaq@gmail.com
+      name: Zufar Dhiyaulhaq
+      url: https://zufardhiyaulhaq.com
+    name: sma-alert
+    type: application
+    urls:
+    - sma-alert-1.0.0.tgz
+    version: 1.0.0
+generated: "2022-09-13T20:00:36.444819+07:00"

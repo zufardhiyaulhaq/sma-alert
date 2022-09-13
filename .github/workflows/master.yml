@@ -1,9 +1,9 @@
-name: Publish
+name: Master
 
 on:
-  create:
-    tags:
-      - v*
+  push:
+    branches:
+    - master
 
 jobs:
   image:
@@ -11,9 +11,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Set variables
-        id: vars
-        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -28,4 +25,4 @@ jobs:
         with:
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: zufardhiyaulhaq/sma-alert:latest,zufardhiyaulhaq/sma-alert:${{ steps.vars.outputs.tag }}
+          tags: zufardhiyaulhaq/sma-alert:latest
